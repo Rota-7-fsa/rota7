@@ -1,0 +1,230 @@
+:root {
+  --bg-principal: #121212;
+  --bg-secundario: #1e1e24;
+  --cor-accent: #eab308;
+  --cor-accent-hover: #ca8a04;
+}
+
+body {
+  background-color: var(--bg-principal) !important;
+  color: #f4f4f5 !important;
+}
+
+.bg-principal {
+  background-color: var(--bg-principal) !important;
+}
+
+.bg-secondary,
+.bg-secundario-escuro,
+.modal-content,
+.card {
+  background-color: var(--bg-secundario) !important;
+}
+
+.text-muted {
+  color: #a1a1aa !important;
+}
+
+.text-dark {
+  color: #121212 !important;
+}
+
+.text-light,
+.text-white {
+  color: #f4f4f5 !important;
+}
+
+.bg-accent {
+  background-color: var(--cor-accent);
+}
+
+.border-accent {
+  border-color: var(--cor-accent) !important;
+}
+
+.text-destaque {
+  color: var(--cor-accent) !important;
+}
+
+.form-control,
+.form-select,
+.input-group-text {
+  background-color: #27272a !important;
+  color: #ffffff !important;
+  border-color: #3f3f46 !important;
+}
+
+.form-control::placeholder {
+  color: #71717a !important;
+}
+
+.form-control:focus {
+  border-color: var(--cor-accent) !important;
+  box-shadow: 0 0 0 0.25rem rgba(234, 179, 8, 0.25) !important;
+}
+
+.btn-destaque {
+  background-color: var(--cor-accent) !important;
+  color: #121212 !important;
+  border-color: var(--cor-accent) !important;
+}
+
+.btn-destaque:hover {
+  background-color: var(--cor-accent-hover) !important;
+  border-color: var(--cor-accent-hover) !important;
+  color: #121212 !important;
+}
+
+.bg-marca {
+  background-color: var(--bg-secundario) !important;
+  border-bottom: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.banner-slide {
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.banner-1 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('img/picanhaup.avif');
+}
+
+.banner-2 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('img/salada.avif');
+}
+
+.banner-3 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('img/restaurante.avif');
+}
+
+.card-produto {
+  border: 1px solid #3f3f46 !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-produto:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5) !important;
+  border-color: var(--cor-accent) !important;
+}
+
+.img-produto {
+  height: 180px;
+  object-fit: cover;
+}
+
+.btn-favorito {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(18, 18, 18, 0.85);
+  border: 1px solid #3f3f46;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease;
+}
+
+.btn-favorito:active {
+  transform: scale(1.2);
+}
+
+#botoesCategorias::-webkit-scrollbar {
+  height: 4px;
+}
+
+#botoesCategorias::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 4px;
+}
+
+.janela-fundo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  background: rgba(0, 0, 0, 0.82);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.janela-fundo.d-none {
+  display: none !important;
+}
+
+.janela-cartao {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  opacity: 1;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.janela-icone-sucesso {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--cor-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 8px rgba(234, 179, 8, 0.2);
+  animation: pulseSuccess 1.5s infinite;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes pulseSuccess {
+  0% {
+    box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.5);
+  }
+
+  70% {
+    box-shadow: 0 0 0 14px rgba(234, 179, 8, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(234, 179, 8, 0);
+  }
+}
+#alertaPreferencias .container > div,
+#textoPreferenciasAtivas,
+#listaComanda,
+#listaCarrinho,
+#resumoJanelaPedido {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

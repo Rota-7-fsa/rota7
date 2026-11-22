@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#121212">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Rota 7">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Cardápio Digital Rota 7 - Peça online com rapidez.">
+  <title>Rota 7 — Cardápio Digital</title>
+
+  <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+
+  <link rel="manifest" href="manifest.json">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-marca shadow-sm" aria-label="Navegação principal">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+          <i class="bi bi-signpost-split-fill text-destaque fs-4" aria-hidden="true"></i>
+          <span class="text-white">ROTA <span class="text-destaque">7</span></span>
+        </a>
+
+        <div class="d-flex align-items-center gap-2 order-lg-3">
+          <button
+            type="button"
+            class="btn btn-outline-light btn-sm position-relative border-secondary"
+            data-bs-toggle="modal"
+            data-bs-target="#modalPreferencias"
+            title="Restrições e Alergias"
+          >
+            <i class="bi bi-shield-check text-destaque" aria-hidden="true"></i>
+            <span class="d-none d-md-inline ms-1">Restrições</span>
+            <span id="etiquetaPreferencias" class="position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-dark rounded-circle d-none"></span>
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-destaque text-dark btn-sm fw-semibold position-relative"
+            data-bs-toggle="modal"
+            data-bs-target="#modalCarrinho"
+          >
+            <i class="bi bi-receipt-cutoff" aria-hidden="true"></i>
+            <span class="ms-1">Comanda</span>
+            <span id="contadorCarrinho" class="badge bg-danger ms-1 rounded-pill text-white">0</span>
+          </button>
+
+          <button
+            class="navbar-toggler border-0 text-white"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menuNavegacao"
+            aria-controls="menuNavegacao"
+            aria-expanded="false"
+            aria-label="Alternar menu de navegação"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse order-lg-2" id="menuNavegacao">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active text-destaque fw-semibold" href="#secaoCardapio">Cardápio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="#secaoInstalar">
+                <i class="bi bi-phone me-1" aria-hidden="true"></i>Como Instalar App
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <aside id="alertaPreferencias" class="bg-dark text-warning py-2 border-bottom border-warning d-none" role="alert">
+      <div class="container d-flex justify-content-between align-items-center small">
+        <div>
+          <i class="bi bi-exclamation-triangle-fill text-destaque me-1" aria-hidden="true"></i>
+          <strong>Perfil Alimentar Ativo:</strong> <span id="textoPreferenciasAtivas"></span>
+        </div>
+        <button
+          type="button"
+          class="btn btn-link btn-sm text-destaque p-0 fw-semibold text-decoration-none"
+          data-bs-toggle="modal"
+          data-bs-target="#modalPreferencias"
+        >
+          Editar
+        </button>
+      </div>
+    </aside>
+  </header>
+
+  <section class="container mt-3" aria-label="Destaques do cardápio">
+    <div id="carrosselDestaques" class="carousel slide rounded-4 overflow-hidden shadow-lg border border-secondary" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carrosselDestaques" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carrosselDestaques" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carrosselDestaques" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active banner-slide banner-1">
+          <div class="carousel-caption text-start p-4 rounded-3 bg-black bg-opacity-75 border border-secondary">
+            <span class="badge bg-accent text-dark mb-2 fw-bold">Parada Obrigatória</span>
+            <h2 class="fw-bold text-white">Picanha na brasa</h2>
+            <p class="mb-0 text-light d-none d-sm-block">Acompanha arroz biro-biro, farofa crocante e fritas rústicas.</p>
+          </div>
+        </div>
+
+        <div class="carousel-item banner-slide banner-2">
+          <div class="carousel-caption text-start p-4 rounded-3 bg-black bg-opacity-75 border border-secondary">
+            <span class="badge bg-success text-white mb-2 fw-bold">100% Plant-Based</span>
+            <h2 class="fw-bold text-white">Linha Verde &amp; Sem Glúten</h2>
+            <p class="mb-0 text-light d-none d-sm-block">Configure suas restrições no topo e veja avisos personalizados no cardápio.</p>
+          </div>
+        </div>
+
+        <div class="carousel-item banner-slide banner-3">
+          <div class="carousel-caption text-start p-4 rounded-3 bg-black bg-opacity-75 border border-secondary">
+            <span class="badge bg-accent text-dark mb-2 fw-bold">Comanda Inteligente</span>
+            <h2 class="fw-bold text-white">Peça no seu ritmo</h2>
+            <p class="mb-0 text-light d-none d-sm-block">Envie pedidos para a cozinha e acompanhe o total acumulado da sua mesa.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carrosselDestaques" data-bs-slide="prev" aria-label="Slide anterior">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#carrosselDestaques" data-bs-slide="next" aria-label="Próximo slide">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </section>
+
+  <main id="secaoCardapio" class="container my-4 flex-grow-1">
+    <section class="row g-3 align-items-center mb-4" aria-label="Busca e filtro de categorias">
+      <div class="col-12 col-md-5">
+        <div class="input-group shadow-sm">
+          <label for="campoBusca" class="input-group-text bg-secondary border-secondary text-light border-end-0">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <span class="visually-hidden">Buscar prato ou ingrediente</span>
+          </label>
+          <input type="text" id="campoBusca" class="form-control border-secondary border-start-0 text-white" placeholder="Buscar prato ou ingrediente...">
+        </div>
+      </div>
+
+      <div class="col-12 col-md-7">
+        <nav class="d-flex gap-2 overflow-auto pb-1" id="botoesCategorias" aria-label="Categorias do cardápio">
+          <button type="button" class="btn btn-destaque active text-nowrap fw-bold text-dark" data-categoria="Todos">Todos (16)</button>
+          <button type="button" class="btn btn-outline-light text-nowrap border-secondary" data-categoria="Favoritos">
+            <i class="bi bi-heart-fill text-danger me-1" aria-hidden="true"></i>Favoritos
+          </button>
+          <button type="button" class="btn btn-outline-light text-nowrap border-secondary" data-categoria="Entradas">Entradas</button>
+          <button type="button" class="btn btn-outline-light text-nowrap border-secondary" data-categoria="Principais">Pratos Principais</button>
+          <button type="button" class="btn btn-outline-light text-nowrap border-secondary" data-categoria="Sobremesas">Sobremesas</button>
+          <button type="button" class="btn btn-outline-light text-nowrap border-secondary" data-categoria="Bebidas">Bebidas</button>
+        </nav>
+      </div>
+    </section>
+
+    <section aria-label="Lista de pratos">
+      <div id="gridCardapio" class="row g-4"></div>
+    </section>
+  </main>
+
+  <section id="secaoInstalar" class="bg-secondary border-top border-secondary py-5 mt-5" aria-labelledby="tituloSecaoInstalar">
+    <div class="container">
+      <header class="text-center mb-4">
+        <span class="badge bg-dark text-destaque px-3 py-2 rounded-pill mb-2 border border-accent">Progressive Web App (PWA)</span>
+        <h2 id="tituloSecaoInstalar" class="h3 fw-bold text-white">Como Instalar o App Rota 7</h2>
+        <p class="text-muted">Acesse o cardápio offline e tenha um atalho direto na tela inicial do seu aparelho.</p>
+        <button type="button" id="btnInstalarNativo" class="btn btn-destaque text-dark btn-lg fw-bold shadow-sm mt-2">
+          <i class="bi bi-download me-2" aria-hidden="true"></i>Instalar App Agora
+        </button>
+      </header>
+
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <article class="card h-100 border border-secondary shadow-sm rounded-4 p-3 bg-secondary">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="bg-dark text-success rounded-3 p-3 border border-success">
+                  <i class="bi bi-android2 fs-2" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3 class="h5 fw-bold mb-0 text-white">Android</h3>
+                  <small class="text-muted">Navegador Chrome</small>
+                </div>
+              </div>
+              <ol class="small text-light ps-3 mb-0 d-flex flex-column gap-2">
+                <li>Toque no ícone de <strong>menu (três pontos <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>)</strong> no Chrome.</li>
+                <li>Selecione <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar aplicativo"</strong>.</li>
+                <li>Confirme tocando em <strong>Instalar</strong>.</li>
+              </ol>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <article class="card h-100 border border-secondary shadow-sm rounded-4 p-3 bg-secondary">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="bg-dark text-white rounded-3 p-3 border border-secondary">
+                  <i class="bi bi-apple fs-2" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3 class="h5 fw-bold mb-0 text-white">iPhone (iOS)</h3>
+                  <small class="text-muted">Navegador Safari</small>
+                </div>
+              </div>
+              <ol class="small text-light ps-3 mb-0 d-flex flex-column gap-2">
+                <li>Abra no <strong>Safari</strong> e toque no botão <strong>Compartilhar (<i class="bi bi-box-arrow-up" aria-hidden="true"></i>)</strong>.</li>
+                <li>Role e selecione <strong>"Adicionar à Tela de Início" (<i class="bi bi-plus-square" aria-hidden="true"></i>)</strong>.</li>
+                <li>Toque em <strong>Adicionar</strong>.</li>
+              </ol>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <article class="card h-100 border border-secondary shadow-sm rounded-4 p-3 bg-secondary">
+            <div class="card-body">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="bg-dark text-primary rounded-3 p-3 border border-primary">
+                  <i class="bi bi-laptop fs-2" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h3 class="h5 fw-bold mb-0 text-white">Computador</h3>
+                  <small class="text-muted">Chrome ou Edge</small>
+                </div>
+              </div>
+              <ol class="small text-light ps-3 mb-0 d-flex flex-column gap-2">
+                <li>Clique no ícone de <strong>Instalar (<i class="bi bi-display" aria-hidden="true"></i>)</strong> na barra de endereços (URL).</li>
+                <li>Clique em <strong>Instalar</strong> para abrir como aplicativo de desktop.</li>
+              </ol>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-principal text-light py-4 mt-auto border-top border-secondary">
+    <div class="container text-center small">
+      <p class="mb-1 fw-bold text-destaque">ROTA 7 — Cardápio Digital PWA</p>
+      <p class="text-muted mb-0">Dados salvos localmente no seu dispositivo. Carrinho e comanda protegidos offline.</p>
+    </div>
+  </footer>
+
+  <div class="modal fade" id="modalCarrinho" tabindex="-1" aria-labelledby="tituloModalCarrinho" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+      <div class="modal-content rounded-4 border border-secondary bg-secondary text-white">
+        <div class="modal-header bg-marca text-white border-bottom border-secondary">
+          <h2 id="tituloModalCarrinho" class="modal-title h5 fw-bold">
+            <i class="bi bi-receipt-cutoff me-2 text-destaque" aria-hidden="true"></i>Seu Pedido &amp; Comanda Rota 7
+          </h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <section class="mb-4 bg-dark p-3 rounded-3 border border-secondary" aria-label="Identificação da mesa">
+            <label for="inputMesa" class="form-label fw-bold small text-uppercase text-destaque mb-1">
+              <i class="bi bi-person-badge me-1" aria-hidden="true"></i>Identificação (Mesa ou Nome do Cliente)
+            </label>
+            <input type="text" id="inputMesa" class="form-control" placeholder="Ex: Mesa 07 - Ana">
+            <div id="erroMesa" class="text-danger small mt-1 d-none">Por favor, informe a mesa ou seu nome antes de enviar o pedido.</div>
+          </section>
+
+          <section class="mb-4" aria-label="Itens para enviar agora">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h3 class="h6 fw-bold mb-0 text-white">
+                <i class="bi bi-cart3 me-2 text-destaque" aria-hidden="true"></i>Itens para Enviar Agora
+              </h3>
+              <button type="button" id="btnLimparCarrinho" class="btn btn-link btn-sm text-danger text-decoration-none p-0">Limpar seleção</button>
+            </div>
+            <div id="listaCarrinho" class="border border-secondary rounded-3 p-3 bg-dark"></div>
+            <div class="d-flex justify-content-between align-items-center mt-2 px-1">
+              <span class="text-muted small fw-semibold">Subtotal deste envio:</span>
+              <span id="valorSubtotalCarrinho" class="fs-5 fw-bold text-destaque">R$ 0,00</span>
+            </div>
+          </section>
+
+          <hr class="border-secondary my-4">
+
+          <section aria-label="Pedidos já enviados">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h3 class="h6 fw-bold mb-0 text-white">
+                <i class="bi bi-clock-history me-2 text-success" aria-hidden="true"></i>Pedidos Já Enviados (Comanda na Cozinha)
+              </h3>
+              <button type="button" id="btnLimparComanda" class="btn btn-outline-secondary btn-sm py-0 px-2 small text-light">Zerar Comanda</button>
+            </div>
+            <div id="listaComanda" class="border border-secondary rounded-3 p-3 bg-dark"></div>
+          </section>
+        </div>
+
+        <div class="modal-footer d-flex justify-content-between align-items-center bg-marca border-top border-secondary">
+          <div>
+            <span class="text-muted small d-block">Total Acumulado da Comanda:</span>
+            <span id="valorTotalComanda" class="fs-4 fw-bold text-destaque">R$ 0,00</span>
+          </div>
+          <button type="button" id="btnFinalizarPedido" class="btn btn-destaque text-dark fw-bold px-4 py-2 rounded-3 shadow-sm">
+            <i class="bi bi-send-check me-2" aria-hidden="true"></i>Enviar para a Cozinha
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalPreferencias" tabindex="-1" aria-labelledby="tituloModalPreferencias" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border border-secondary bg-secondary text-white">
+        <div class="modal-header bg-dark text-white border-bottom border-secondary">
+          <h2 id="tituloModalPreferencias" class="modal-title h5 fw-bold">
+            <i class="bi bi-shield-check text-destaque me-2" aria-hidden="true"></i>Preferências e Restrições
+          </h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <form id="formPreferencias">
+          <div class="modal-body p-4">
+            <p class="small text-muted mb-3">Salve suas restrições. Os pratos incompatíveis receberão um alerta visual imediato no cardápio.</p>
+
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input bg-dark border-secondary" type="checkbox" id="prefSemGluten">
+              <label class="form-check-label fw-semibold text-white" for="prefSemGluten">Intolerância a Glúten (Destacar/Alertar)</label>
+            </div>
+
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input bg-dark border-secondary" type="checkbox" id="prefSemLactose">
+              <label class="form-check-label fw-semibold text-white" for="prefSemLactose">Intolerância à Lactose (Destacar/Alertar)</label>
+            </div>
+
+            <div class="form-check form-switch mb-3">
+              <input class="form-check-input bg-dark border-secondary" type="checkbox" id="prefVegano">
+              <label class="form-check-label fw-semibold text-white" for="prefVegano">Dieta Vegetariana / Vegana</label>
+            </div>
+
+            <div class="mb-3">
+              <label for="prefOutrasAlergias" class="form-label fw-semibold small text-destaque">Outras Alergias / Observações Fixas para a Cozinha:</label>
+              <textarea class="form-control" id="prefOutrasAlergias" rows="2" placeholder="Ex: Alergia a camarão, amendoim, tirar cebola..."></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer bg-dark border-top border-secondary">
+            <button type="button" class="btn btn-outline-light border-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-destaque fw-bold text-dark">Salvar Preferências</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="janelaConfirmacao" class="janela-fundo d-none" role="dialog" aria-modal="true" aria-labelledby="tituloJanelaConfirmacao">
+    <div class="janela-cartao text-center p-4 rounded-4 shadow-lg bg-secondary border border-secondary text-white">
+      <div class="janela-icone-sucesso mx-auto mb-3">
+        <i class="bi bi-check-lg text-dark fs-1 fw-bold" aria-hidden="true"></i>
+      </div>
+      <h2 id="tituloJanelaConfirmacao" class="h4 fw-bold text-white mb-1">Pedido Enviado à Cozinha!</h2>
+      <p class="text-muted small mb-3">O chef do Rota 7 já recebeu seu pedido e ele está sendo preparado.</p>
+
+      <div id="resumoJanelaPedido" class="bg-dark border border-secondary rounded-3 p-3 text-start small mb-3 text-light"></div>
+
+      <button type="button" id="btnFecharJanela" class="btn btn-destaque text-dark w-100 fw-bold rounded-pill py-2">
+        Acompanhar na Comanda
+      </button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
