@@ -68,3 +68,4 @@ Aplicação web progressiva (PWA) de cardápio digital e autoatendimento para re
 
 
 * `icons/` — Favicons e ícones do aplicativo nas resoluções `180x180`, `192x192` e `512x512`.
+.
