@@ -52,7 +52,7 @@ Aplicação web progressiva (PWA) de cardápio digital e autoatendimento para re
 * `index.html` — Estrutura principal da aplicação, carrossel de destaques, modais e guia de instalação.
 
 
-* `style.css` — Identidade visual, tema escuro, destaques em âmbar e animações.
+* `style.css` — Identidade visual, destaques em âmbar e animações.
 
 
 * `app.js` — Base de dados do cardápio, renderização dinâmica, filtros, controle de carrinho/comanda, `localStorage` e registro do PWA.
