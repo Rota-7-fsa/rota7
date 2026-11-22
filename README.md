@@ -32,7 +32,7 @@ Aplicação web progressiva (PWA) de cardápio digital e autoatendimento para re
 * **HTML5** semântico
 
 
-* **CSS3** com variáveis customizadas e tema escuro
+* **CSS3** com variáveis customizadas
 
 
 * **Bootstrap 5.3.3** & **Bootstrap Icons 1.11.3** (Grid responsivo, Navbar, Carousel, Cards, Modals, Forms e Classes Utilitárias)
