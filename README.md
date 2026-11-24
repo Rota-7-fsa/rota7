@@ -27,7 +27,7 @@ Aplicação web progressiva (PWA) de cardápio digital e autoatendimento para re
 
 ---
 
-### Tecnologias Utilizadas..
+### Tecnologias Utilizadas
 
 * **HTML5** semântico
 
