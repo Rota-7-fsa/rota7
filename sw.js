@@ -1,5 +1,5 @@
 const PREFIXO_CACHE = "rota7-pwa-";
-const CACHE_NAME = PREFIXO_CACHE + "v2";
+const CACHE_NAME = PREFIXO_CACHE + "v3";
 
 const ARQUIVOS_ESSENCIAIS = [
   "./",
