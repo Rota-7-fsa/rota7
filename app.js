@@ -537,14 +537,21 @@ if ("serviceWorker" in navigator) {
 
 let eventoInstalacaoPwa = null;
 const btnInstalarNativo = document.getElementById("btnInstalarNativo");
+const secaoInstalar = document.getElementById("secaoInstalar");
+const linkMenuInstalar = document.querySelector('a[href="#secaoInstalar"]');
 
-const estaNoAppInstalado =
-  window.matchMedia("(display-mode: standalone)").matches ||
-  window.navigator.standalone === true;
+function verificarModoAppInstalado() {
+  const estaNoApp =
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
 
-if (estaNoAppInstalado && btnInstalarNativo) {
-  btnInstalarNativo.classList.add("d-none");
+  if (estaNoApp) {
+    if (secaoInstalar) secaoInstalar.classList.add("d-none");
+    if (linkMenuInstalar) linkMenuInstalar.closest("li")?.classList.add("d-none");
+  }
 }
+
+verificarModoAppInstalado();
 
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
@@ -553,12 +560,7 @@ window.addEventListener("beforeinstallprompt", (e) => {
 
 window.addEventListener("appinstalled", () => {
   eventoInstalacaoPwa = null;
-  if (
-    window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone === true
-  ) {
-    btnInstalarNativo.classList.add("d-none");
-  }
+  verificarModoAppInstalado();
 });
 
 if (btnInstalarNativo) {
@@ -569,12 +571,13 @@ if (btnInstalarNativo) {
       if (outcome === "accepted") {
         eventoInstalacaoPwa = null;
       }
-  } else {
-    alert(
-      "Para instalar ou criar um novo atalho:\n\n" +
-      "• Android (Chrome): Toque nos 3 pontinhos (⋮) > 'Instalar aplicativo' ou 'Adicionar à tela inicial'.\n" +
-      "• iPhone (Safari): Toque em Compartilhar (↑) > 'Adicionar à Tela de Início'.\n" +
-      "• PC (Chrome/Edge): Clique no ícone de instalação na barra de endereço ou no menu (⋮) > 'Salvar e compartilhar' > 'Instalar página como app'."
-    );
-  }
-});
+    } else {
+      alert(
+        "Para instalar ou criar um novo atalho:\n\n" +
+        "• Android (Chrome): Toque nos 3 pontinhos (⋮) > 'Instalar aplicativo' ou 'Adicionar à tela inicial'.\n" +
+        "• iPhone (Safari): Toque em Compartilhar (↑) > 'Adicionar à Tela de Início'.\n" +
+        "• PC (Chrome/Edge): Clique no ícone de instalação na barra de endereço ou no menu (⋮) > 'Salvar e compartilhar' > 'Instalar página como app'."
+      );
+    }
+  });
+}
