@@ -561,13 +561,14 @@ window.addEventListener("appinstalled", () => {
   }
 });
 
-btnInstalarNativo.addEventListener("click", async () => {
-  if (eventoInstalacaoPwa) {
-    eventoInstalacaoPwa.prompt();
-    const { outcome } = await eventoInstalacaoPwa.userChoice;
-    if (outcome === "accepted") {
-      eventoInstalacaoPwa = null;
-    }
+if (btnInstalarNativo) {
+  btnInstalarNativo.addEventListener("click", async () => {
+    if (eventoInstalacaoPwa) {
+      eventoInstalacaoPwa.prompt();
+      const { outcome } = await eventoInstalacaoPwa.userChoice;
+      if (outcome === "accepted") {
+        eventoInstalacaoPwa = null;
+      }
   } else {
     alert(
       "Para instalar ou criar um novo atalho:\n\n" +
