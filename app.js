@@ -538,9 +538,27 @@ if ("serviceWorker" in navigator) {
 let eventoInstalacaoPwa = null;
 const btnInstalarNativo = document.getElementById("btnInstalarNativo");
 
+const estaNoAppInstalado =
+  window.matchMedia("(display-mode: standalone)").matches ||
+  window.navigator.standalone === true;
+
+if (estaNoAppInstalado && btnInstalarNativo) {
+  btnInstalarNativo.classList.add("d-none");
+}
+
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   eventoInstalacaoPwa = e;
+});
+
+window.addEventListener("appinstalled", () => {
+  eventoInstalacaoPwa = null;
+  if (
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true
+  ) {
+    btnInstalarNativo.classList.add("d-none");
+  }
 });
 
 btnInstalarNativo.addEventListener("click", async () => {
