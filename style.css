@@ -229,7 +229,8 @@ body {
   word-break: break-word;
 }
 @media all and (display-mode: standalone) {
-  #btnInstalarNativo {
+  #secaoInstalar,
+  a[href="#secaoInstalar"] {
     display: none !important;
   }
 }
